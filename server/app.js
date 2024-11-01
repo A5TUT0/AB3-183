@@ -1,12 +1,20 @@
-const express = require("express");
-const http = require("http");
-const { initializeAPI } = require("./api");
+import express from "express";
+import http from "http";
+import initializeAPI from "./api.js";
+import rateLimit from "express-rate-limit";
+import dotenv from "dotenv";
+dotenv.config();
+const limit = rateLimit({
+  windowMs: 1 * 60 * 1000,
+  max: 50,
+  message: "To many request",
+});
 
 // Create the express server
 const app = express();
 app.use(express.json());
 const server = http.createServer(app);
-
+app.use(limit);
 // deliver static files from the client folder like css, js, images
 app.use(express.static("client"));
 // route for the homepage
@@ -18,7 +26,7 @@ app.get("/", (req, res) => {
 initializeAPI(app);
 
 //start the web server
-const serverPort = 3000;
+const serverPort = process.env.PORT;
 server.listen(serverPort, () => {
   console.log(`Express Server started on port ${serverPort}`);
 });

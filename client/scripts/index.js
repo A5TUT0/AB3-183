@@ -1,3 +1,8 @@
+function escapeHtml(text) {
+  const element = document.createElement("div");
+  element.textContent = text;
+  return element.innerHTML;
+}
 document.addEventListener("DOMContentLoaded", () => {
   const usernameInput = document.getElementById("username");
   const passwordInput = document.getElementById("password");
@@ -15,6 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     const result = await response.text();
     resultText.insertAdjacentHTML("afterbegin", result);
+    if (!response.ok) {
+      const error = await response.json();
+      errorText.textContent = escapeHtml(error.error);
+      document.querySelector("#error").textContent = error.error;
+    }
+    return error;
   };
 
   loginButton.addEventListener("click", async () => {

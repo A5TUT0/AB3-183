@@ -23,13 +23,15 @@
             <input
               id="username"
               placeholder="Username"
-              type="text"
+              type="email"
+              required
               class="w-full p-2 px-4 placeholder-gray-200 rounded bg-slate-400 grow"
             />
             <input
               id="password"
               placeholder="Password"
               type="password"
+              required
               class="w-full p-2 px-4 placeholder-gray-200 rounded bg-slate-400 grow"
             />
             <div class="grid grid-cols-2 gap-2">
@@ -50,6 +52,7 @@
             <span id="result" class="text-green-500"></span>
           </div>
       </div>
+      <p id="error"></p>
     </main>
     <footer class="flex items-center justify-center flex-shrink-0 h-14">
       <p>Made with ❤️ and a lot of ☕️ by SwitzerChees</p>
